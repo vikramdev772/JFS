@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fruits</title>
+</head>
+<body>
+
+<h2>Fruits</h2>
+<button onclick="loadFruits()">Load Fruits</button>
+
+<div id="result"></div>
+
+<script>
+function loadFruits() {
+    fetch("http://localhost:8080/fruits")
+        .then(res => res.json())
+        .then(data => {
+            const result = document.getElementById("result");
+            result.innerHTML = ""; // clear old data
+
+            // loop object
+            for (const [name, emoji] of Object.entries(data)) {
+                result.innerHTML += `<h3>${emoji} ${name}</h3>`;
+            }
+        })
+        .catch(err => console.error(err));
+}
+</script>
+
+</body>
+</html>
